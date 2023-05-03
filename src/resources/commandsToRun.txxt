@@ -1,0 +1,1 @@
+$env:Env='Test';&npm run test demo.spec.ts
