@@ -53,7 +53,7 @@ export class Alert {
             dialog.dismiss()
         })
         await this._page.click('button#confirm')
-        }
+    }
 
     async validatePromptAlert() {
         /** Comment */
@@ -73,13 +73,13 @@ export class Frame {
         this._page = _page
     }
 
-    async getCountOfFrames(){
+    async getCountOfFrames() {
         /** Comment */
         let framesData = await this._page.frames()
-        await console.log("Frames avaialble on UI :",framesData)
+        await console.log("Frames avaialble on UI :", framesData)
     }
 
-    async fillValueInEmailField(){
+    async fillValueInEmailField() {
         /** Comment */
         const frame = await this._page.frameLocator("iframe[src='innerFrame']")
         await frame.locator(xpaths.emailText).fill('demo@gmail.com')

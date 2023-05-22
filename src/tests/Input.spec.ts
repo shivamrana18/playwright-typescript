@@ -22,40 +22,40 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
         frame = new Frame(page)
     })
 
-    // test.describe(`Input-Edit`,async ()=>{
-    //     test(`Step-1 : Navigate to 'Input' section`, async () => {
-    //         await navigate.browseUrl()
-    //         await navigate._navigateToInputPage()
-    //     })
+    test.describe(`Input-Edit`, async () => {
+        test(`Step-1 : Navigate to 'Input' section`, async () => {
+            await navigate.browseUrl()
+            await navigate._navigateToInputPage()
+        })
 
-    //     test(`Step-2 : Validate fields in 'Input' section`, async () => {
-    //         await input.validateBorderOfField()
-    //         await input.isFieldDisabled()
-    //     })
-    // })
+        test(`Step-2 : Validate fields in 'Input' section`, async () => {
+            await input.validateBorderOfField()
+            await input.isFieldDisabled()
+        })
+    })
 
-    // test.describe(`Select-Dropdown`,async ()=>{
-    //     test(`Step-1 : Navigate to 'Select' section`, async () => {
-    //         await navigate.browseUrl()
-    //         await navigate._navigateToSelectPage()
-    //     })
+    test.describe(`Select-Dropdown`, async () => {
+        test(`Step-1 : Navigate to 'Select' section`, async () => {
+            await navigate.browseUrl()
+            await navigate._navigateToSelectPage()
+        })
 
-    //     test(`Step-2 : Validate fields in 'Select' section`, async () => {
-    //         await select.selectFromDropdown('3')
-    //     })
-    // })
+        test(`Step-2 : Validate fields in 'Select' section`, async () => {
+            await select.selectFromDropdown('3')
+        })
+    })
 
-    // test.describe(`Alert-Dialog`, async () => {
-    //     test(`Step-1 : Navigate to 'Alert' section`, async () => {
-    //         await navigate.browseUrl()
-    //         await navigate._navigateToAlertPage()
-    //     })
+    test.describe(`Alert-Dialog`, async () => {
+        test(`Step-1 : Navigate to 'Alert' section`, async () => {
+            await navigate.browseUrl()
+            await navigate._navigateToAlertPage()
+        })
 
-    //     test(`Step-2 : Validate fields in 'Alert' section`, async () => {
-    //         await alert.validateConfirmAlert()
-    //         await alert.validatePromptAlert()
-    //     })
-    // })
+        test(`Step-2 : Validate fields in 'Alert' section`, async () => {
+            await alert.validateConfirmAlert()
+            await alert.validatePromptAlert()
+        })
+    })
 
     test.describe(`Frame-Iframe`, async () => {
         test(`Step-1 : Navigate to 'Frame' section`, async () => {
