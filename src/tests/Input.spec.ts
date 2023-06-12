@@ -1,6 +1,6 @@
-import { test, Page } from '@playwright/test'
+import { test, Page, expect } from '@playwright/test'
 import { Navigation } from '../pages/Navigation.page'
-import { Input, Select, Alert, Frame } from '../pages/Operations.page'
+import { Input, Select, Alert, Frame, RadioOrCheckbox } from '../pages/Operations.page'
 const valueFromParameterJson = require('../resources/parameters')
 
 test.describe.serial(`Lets Automate it !!!`, async () => {
@@ -11,6 +11,7 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
     let select: Select
     let alert: Alert
     let frame: Frame
+    let radio: RadioOrCheckbox
 
     test.beforeAll(async ({ browser }) => {
         let context = await browser.newContext()
@@ -20,6 +21,7 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
         select = new Select(page)
         alert = new Alert(page)
         frame = new Frame(page)
+        radio = new RadioOrCheckbox(page)
     })
 
     test.describe(`Input-Edit`, async () => {
@@ -69,5 +71,20 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
         })
     })
 
+    test.describe(`Radio-CheckBoxes`, async () => {
+        test(`Step-1 : Navigate to 'Radio' section`, async () => {
+            await navigate.browseUrl()
+            await navigate._navigateToRadioPage()
+        })
 
+        test(`Step-2 : Validate 'Radio' section`, async () => {
+            let [isMayBeButtonChecked, isRemeberMeCheckboxChecked, isNotGoingButtonChecked, isIAgreeCheckboxChecked]
+                = await radio.validateRadioOrCheckboxes()
+
+            expect.soft(isMayBeButtonChecked).toEqual(false)
+            expect.soft(isRemeberMeCheckboxChecked).toEqual(true)
+            expect.soft(isNotGoingButtonChecked).toEqual(true)
+            expect.soft(isIAgreeCheckboxChecked).toEqual(true)
+        })
+    })
 })

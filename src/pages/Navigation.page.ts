@@ -54,4 +54,14 @@ export class Navigation {
         }
         catch (errors) { return false }
     }
+
+    async _navigateToRadioPage() {
+        /** Comments */
+        try {
+            await this._page.waitForSelector(xpaths.radioButton)
+            await this._page.dblclick(xpaths.radioButton, { force: true }).then(() => console.log("Clicked on 'Radio' button"))
+            await this._page.waitForSelector(xpaths.radioTextHeader).then(() => console.log("'Radio' page loaded successfully"))
+        }
+        catch (errors) { return false }
+    }
 }
