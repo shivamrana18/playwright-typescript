@@ -17,6 +17,7 @@ module.exports = {
     dropdownButton: "//p[normalize-space()='Select']/parent::header/following-sibling::footer/a[text()='Drop-Down']",
     alertButton: "//p[normalize-space()='Alert']/parent::header/following-sibling::footer/a[text()='Dialog']",
     frameButton: "//p[normalize-space()='Frame']/parent::header/following-sibling::footer/a[text()='Inner HTML']",
+    radioButton: "//p[normalize-space()='Radio']/parent::header/following-sibling::footer/a[text()='Toggle']",
 
     /** Xpaths related to 'Input' */
     inputTextHeader: "//h1[normalize-space()='Input']",
@@ -32,6 +33,13 @@ module.exports = {
 
     /** Xpaths related to 'Alert' */
     frameTextHeader: "//h1[normalize-space()='Frame']",
-    emailText: "[name='email']"
+    emailText: "//input[@name='email']",
+
+    /** Xpaths related to 'Alert' */
+    radioTextHeader: "//h1[normalize-space()='Radio & Checkbox']",
+    notGoingButton: "//input[@id='notG']",
+    mayBeButton: "//input[@id='maybe']",
+    remeberMeCheckbox: "//*[contains(text(),'Remember me')]/input",
+    iAgreeCheckBox: "//*[contains(text(),'I agree to the')]/input"
 
 }

@@ -76,13 +76,55 @@ export class Frame {
     async getCountOfFrames() {
         /** Comment */
         let framesData = await this._page.frames()
-        await console.log("Frames avaialble on UI :", framesData)
+        await console.log("Frames avaialble on UI : [", framesData.length, "] :", framesData)
     }
 
     async fillValueInEmailField() {
         /** Comment */
-        const frame = await this._page.frameLocator("iframe[src='innerFrame']")
-        await frame.locator(xpaths.emailText).fill('demo@gmail.com')
-        await console.log("Email-Id filled :", await frame.locator(xpaths.emailText).inputValue())
+
+        const frame = this._page.frame({ name: "firstFr" });
+        if (frame != null) {
+            await frame.fill("input[name='fname']", "Shivam");
+            await frame.fill("input[name='lname']", "Rana");
+
+            // inner frame
+            const frames = frame.childFrames();
+            console.log('No. of inner frames: ' + frames.length);
+            console.log("Frames Array: " + frames);
+            if (frames != null) {
+                await frames[0].locator("input[name='email']").fill("TestData");
+                await frames[1].locator("input[name='email']").fill("TestData");
+            }
+            else {
+                console.log("Wrong frame");
+            }
+            const parent = frames[0].parentFrame()
+            await frame.fill("input[name='lname']", "Shivam_Rana");
+            await parent?.fill("input[name='lname']", "Youtube");
+        } else throw new Error("No such frame")
+    }
+}
+
+export class RadioOrCheckbox {
+    constructor(private _page: Page) {
+        this._page = _page
+    }
+
+    async validateRadioOrCheckboxes() {
+        /** Comment */
+        let isMayBeButtonChecked = await this._page.locator(xpaths.mayBeButton).isChecked()
+        let isRemeberMeCheckboxChecked = await this._page.locator(xpaths.remeberMeCheckbox).isChecked()
+
+        await this._page.locator(xpaths.notGoingButton).check()
+        let isNotGoingButtonChecked = await this._page.locator(xpaths.notGoingButton).isChecked()
+
+        await this._page.locator(xpaths.iAgreeCheckBox).check()
+        let isIAgreeCheckboxChecked = await this._page.locator(xpaths.iAgreeCheckBox).isChecked()
+
+        await console.log(`isMayBeButtonChecked : ${isMayBeButtonChecked}
+        \nisRemeberMeCheckboxChecked : ${isRemeberMeCheckboxChecked}
+        \nisNotGoingButtonChecked : ${isNotGoingButtonChecked}
+        \nisIAgreeCheckboxChecked : ${isIAgreeCheckboxChecked}`)
+        return [isMayBeButtonChecked, isRemeberMeCheckboxChecked, isNotGoingButtonChecked, isIAgreeCheckboxChecked]
     }
 }

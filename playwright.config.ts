@@ -5,13 +5,13 @@ export default defineConfig({
   timeout: 2400 * 1000,
   use: {
     browserName: "chromium",
-    locale: "en-GB",
     headless: false,
     screenshot: "on",
     video: "retain-on-failure",
-    //storageState: 'storageState.json',
+    storageState: 'storageState.json',
     trace: 'on',
     viewport: null,
+    launchOptions: { args: ['--start-maximized'] },
     acceptDownloads: true,
     actionTimeout: 120000,
     navigationTimeout: 120000
@@ -19,5 +19,5 @@ export default defineConfig({
   retries: 0,
   //reporter : [["list"], ["json", {outputFile : "test-result.json"}]  /** Generate json report */
   //reporter: [["list"], ['junit', { outputFile: 'results.xml' }]  /** Generate .xml report */
-  reporter: [["list"], ['html', { open: 'never', outputFile: 'my-report' }]  ],  /** Generate HTML report */
+  reporter: [["list"], ['html', { open: 'never', outputFile: 'my-report' }]],  /** Generate HTML report */
 });
