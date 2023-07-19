@@ -1,9 +1,8 @@
-import { Page } from '@playwright/test'
+import { BrowserContext, Page } from '@playwright/test'
 
-if (process.env.Env == 'Test') var xpaths = require('../utilities/xpaths/testEnv.ts');
-else if (process.env.Env == 'Prod') var xpaths = require('../utilities/xpaths/prodEnv.ts');
-
-let d;
+if (process.env.Env == 'Test') var xpaths = require('xpaths/testEnv.ts');
+else if (process.env.Env == 'Prod') var xpaths = require('xpaths/prodEnv.ts');
+let context: BrowserContext;
 
 export class Input {
     constructor(private _page: Page) {
@@ -31,7 +30,7 @@ export class Select {
         this._page = _page
     }
 
-    async selectFromDropdown(option) {
+    async selectFromDropdown(option: string) {
         /** Comment */
         let select = await this._page.locator('select#fruits')
         select.selectOption({ value: option })
@@ -76,7 +75,7 @@ export class Frame {
     async getCountOfFrames() {
         /** Comment */
         let framesData = await this._page.frames()
-        await console.log("Frames avaialble on UI : [", framesData.length, "] :", framesData)
+        await console.log("Frames avaialble on UI : [", framesData.length, "]")
     }
 
     async fillValueInEmailField() {
@@ -88,19 +87,9 @@ export class Frame {
             await frame.fill("input[name='lname']", "Rana");
 
             // inner frame
-            const frames = frame.childFrames();
-            console.log('No. of inner frames: ' + frames.length);
-            console.log("Frames Array: " + frames);
-            if (frames != null) {
-                await frames[0].locator("input[name='email']").fill("TestData");
-                await frames[1].locator("input[name='email']").fill("TestData");
-            }
-            else {
-                console.log("Wrong frame");
-            }
-            const parent = frames[0].parentFrame()
-            await frame.fill("input[name='lname']", "Shivam_Rana");
-            await parent?.fill("input[name='lname']", "Youtube");
+            const innerFrame = frame.frameLocator("iframe.has-background-white")
+            await innerFrame.locator("input[name='email']").type("shivamrana@lala.com")
+            await frame.locator("input[name='fname']").type("koushik")
         } else throw new Error("No such frame")
     }
 }
@@ -126,5 +115,40 @@ export class RadioOrCheckbox {
         \nisNotGoingButtonChecked : ${isNotGoingButtonChecked}
         \nisIAgreeCheckboxChecked : ${isIAgreeCheckboxChecked}`)
         return [isMayBeButtonChecked, isRemeberMeCheckboxChecked, isNotGoingButtonChecked, isIAgreeCheckboxChecked]
+    }
+}
+
+export class Windows {
+    constructor(private _page: Page) {
+        this._page = _page
+    }
+
+    async InitializeContext(getContext: BrowserContext) {
+        /** This function will initialize browser context, which would be used later while handling multiple windows */
+        context = getContext;
+    }
+
+    async getUrlOfNewWindow() {
+        /** Comment */
+        let context1: BrowserContext = context
+
+        const tab = context1.waitForEvent('page')
+        await this._page.click(xpaths.multiTabButton)
+        await console.log("New Tab URL :", await (await tab).url())
+        const tabCount = await (await tab).context().pages()
+        await console.log("Promt Alert :", tabCount.length)
+
+        tabCount.forEach(page => {
+            console.log("URL :", page.url())
+        })
+
+        await tabCount[1].bringToFront()
+        tabCount[1].on('dialog', (dialog) => {
+            console.log("Type of Alert :", dialog.type()),
+                console.log("Default value of Alert :", dialog.defaultValue()),
+                console.log("Prompt Alert message :", dialog.message()),
+                dialog.accept("Hello!!! Shivam Rana this side.")
+        })
+        await tabCount[1].click(xpaths.promptAlertButton)
     }
 }

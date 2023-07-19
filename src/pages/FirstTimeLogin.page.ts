@@ -6,8 +6,8 @@
 import { chromium } from '@playwright/test';
 const valueFromParameterFile = require('../resources/parameters');
 
-if (process.env.Env == 'Test')    var xpaths = require('../utilities/xpaths/testEnv.ts');
-else if (process.env.Env == 'Prod')    var xpaths = require('../utilities/xpaths/prodEnv.ts');
+if (process.env.Env == 'Test')    var xpaths = require('xpaths/testEnv.ts');
+else if (process.env.Env == 'Prod')    var xpaths = require('xpaths/prodEnv.ts');
 
 module.exports = async () => {
     const browser = await chromium.launch({ headless: false });

@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test'
 const valueFromParameterJson = require('../resources/parameters')
 
-if (process.env.Env == 'Test') var xpaths = require('../utilities/xpaths/testEnv.ts');
-else if (process.env.Env == 'Prod') var xpaths = require('../utilities/xpaths/prodEnv.ts');
+if (process.env.Env == 'Test') var xpaths = require('xpaths/testEnv.ts');
+else if (process.env.Env == 'Prod') var xpaths = require('xpaths/prodEnv.ts');
 
 export class Navigation {
     constructor(private _page: Page) {
@@ -61,6 +61,16 @@ export class Navigation {
             await this._page.waitForSelector(xpaths.radioButton)
             await this._page.dblclick(xpaths.radioButton, { force: true }).then(() => console.log("Clicked on 'Radio' button"))
             await this._page.waitForSelector(xpaths.radioTextHeader).then(() => console.log("'Radio' page loaded successfully"))
+        }
+        catch (errors) { return false }
+    }
+
+    async _navigateToWindowPage() {
+        /** Comments */
+        try {
+            await this._page.waitForSelector(xpaths.windowButton)
+            await this._page.dblclick(xpaths.windowButton, { force: true }).then(() => console.log("Clicked on 'Tabs' button"))
+            await this._page.waitForSelector(xpaths.windowTextHeader).then(() => console.log("'Windows' page loaded successfully"))
         }
         catch (errors) { return false }
     }
