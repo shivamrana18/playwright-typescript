@@ -18,6 +18,7 @@ module.exports = {
     alertButton: "//p[normalize-space()='Alert']/parent::header/following-sibling::footer/a[text()='Dialog']",
     frameButton: "//p[normalize-space()='Frame']/parent::header/following-sibling::footer/a[text()='Inner HTML']",
     radioButton: "//p[normalize-space()='Radio']/parent::header/following-sibling::footer/a[text()='Toggle']",
+    windowButton: "//p[normalize-space()='Window']/parent::header/following-sibling::footer/a[text()='Tabs']",
 
     /** Xpaths related to 'Input' */
     inputTextHeader: "//h1[normalize-space()='Input']",
@@ -40,6 +41,11 @@ module.exports = {
     notGoingButton: "//input[@id='notG']",
     mayBeButton: "//input[@id='maybe']",
     remeberMeCheckbox: "//*[contains(text(),'Remember me')]/input",
-    iAgreeCheckBox: "//*[contains(text(),'I agree to the')]/input"
+    iAgreeCheckBox: "//*[contains(text(),'I agree to the')]/input",
+
+    /** Xpaths related to 'Window' */
+    windowTextHeader: "//h1[normalize-space()='Windows']",
+    multiTabButton: "button#multi",
+    promptAlertButton: "button#prompt"
 
 }

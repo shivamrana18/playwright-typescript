@@ -1,7 +1,8 @@
-import { test, Page, expect } from '@playwright/test'
-import { Navigation } from '../pages/Navigation.page'
-import { Input, Select, Alert, Frame, RadioOrCheckbox } from '../pages/Operations.page'
-const valueFromParameterJson = require('../resources/parameters')
+import { test, Page, expect, BrowserContext } from '@playwright/test'
+import { Navigation } from '@pages/Navigation.page'
+import { Input, Select, Alert, Frame, RadioOrCheckbox, Windows} from '@pages/Operations.page'
+const valueFromParameterJson = require('@resources/parameters')
+var context: BrowserContext
 
 test.describe.serial(`Lets Automate it !!!`, async () => {
 
@@ -12,9 +13,10 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
     let alert: Alert
     let frame: Frame
     let radio: RadioOrCheckbox
+    let window: Windows
 
     test.beforeAll(async ({ browser }) => {
-        let context = await browser.newContext()
+        context = await browser.newContext()
         page = await context.newPage()
         navigate = new Navigation(page)
         input = new Input(page)
@@ -22,6 +24,7 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
         alert = new Alert(page)
         frame = new Frame(page)
         radio = new RadioOrCheckbox(page)
+        window = new Windows(page)
     })
 
     test.describe(`Input-Edit`, async () => {
@@ -85,6 +88,18 @@ test.describe.serial(`Lets Automate it !!!`, async () => {
             expect.soft(isRemeberMeCheckboxChecked).toEqual(true)
             expect.soft(isNotGoingButtonChecked).toEqual(true)
             expect.soft(isIAgreeCheckboxChecked).toEqual(true)
+        })
+    })
+
+    test.describe(`Windows-Tab Handling`, async () => {
+        test(`Step-1 : Navigate to 'Windows' section`, async () => {
+            await navigate.browseUrl()
+            await navigate._navigateToWindowPage()
+        })
+
+        test(`Step-2 : Handle multiple windows`, async () => {
+            await window.InitializeContext(context)
+            await window.getUrlOfNewWindow()
         })
     })
 })

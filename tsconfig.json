@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "strict": true,
+        "module": "commonjs",
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "@pages/*": [
+                "src/pages/*"
+            ],
+            "@resources/*": [
+                "src/resources/*"
+            ],
+            "xpaths/*": [
+                "src/utilities/xpaths/*"
+            ]
+        }
+    }
+}
