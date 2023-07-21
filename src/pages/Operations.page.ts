@@ -89,7 +89,7 @@ export class Frame {
             // inner frame
             const innerFrame = frame.frameLocator("iframe.has-background-white")
             await innerFrame.locator("input[name='email']").type("shivamrana@lala.com")
-            await frame.locator("input[name='fname']").type("koushik")
+            await frame.locator("input[name='fname']").type("Shivam_Rana")
         } else throw new Error("No such frame")
     }
 }
